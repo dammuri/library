@@ -15,7 +15,7 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
-mongoose.connect("mongodb+srv://dammuri:vanadam11@cluster0.lvfs6ri.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser : true})
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser : true})
 console.log(process.env.DATABASE_URL)
 const db = mongoose.connection
 db.on('error',(error) => {
