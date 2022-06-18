@@ -8,8 +8,10 @@ const port = 3000
 const app = express()
 const userRouter = require('./router/users')
 const mongoose = require('mongoose')
-app.set(express.json())
-app.set(express.urlencoded({extended : true}))
+const authorRouter = require('./router/author')
+
+app.use(express.json())
+app.use(express.urlencoded({extended : true}))
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
@@ -28,6 +30,11 @@ db.once('open', () =>{
 app.use('/users', userRouter)
 app.get('/', (req,res) => {
     res.render("index")
+})
+app.use('/authors' , authorRouter)
+
+app.get('/header', (req,res) =>{
+    res.render('partials/header')
 })
 
 app.listen(port, () =>{
