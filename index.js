@@ -9,7 +9,7 @@ const app = express()
 const userRouter = require('./router/users')
 const mongoose = require('mongoose')
 const authorRouter = require('./router/author')
-
+const booksRouter = require('./router/books')
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.set('view engine', 'ejs')
@@ -27,6 +27,7 @@ db.once('open', () =>{
     console.log('mongodb ready to use')
 })
  
+app.use('/books', booksRouter)
 app.use('/users', userRouter)
 app.get('/', (req,res) => {
     res.render("index")

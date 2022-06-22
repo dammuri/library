@@ -3,9 +3,14 @@ const author = require('../model/author')
 const router = express.Router()
 
 router.get('/', async (req,res) =>{
-    const authorData = await author.find({})
+    let searchMachine = {}
+    if(req.query.name != null && req.query.name !=''){
+        searchMachine.name = new RegExp(req.query.name, 'i')
+    }
     try{
-        res.render("authors/index", {authors : authorData})
+        const authorData = await author.find(searchMachine)
+        res.render("authors/index", {authors : authorData,
+        searchMachine : req.query})
     }
     catch{
         res.redirect('/')
