@@ -16,9 +16,13 @@ const upload = multer({
 
 router.get('/', async (req,res) => {
     const searchOption = {}
+    if(req.query.title !=null && req.query.title != ''){
+        searchOption.title = new RegExp(req.query.title, 'i')
+    }
     try {
         const book = await Book.find(searchOption)
-        res.render('books/index', {book : book})
+        res.render('books/index', {book : book,
+        searchOption : req.query})
     }
     catch {
         res.json({message : "error occured"})

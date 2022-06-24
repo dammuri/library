@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    bloody hell
+    <div>
+        <% book.forEach(books =>{%>
+        <img height="150" width="100" src="<%= books.coverImagePath%>">
+        <% })%>
+    </div>
 </body>
 </html>

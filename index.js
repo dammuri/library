@@ -1,7 +1,7 @@
-// if(process.env.NODE_ENV !== 'production'){
-//     require('dotenv').config()
-// }
-require('dotenv').config()
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+// require('dotenv').config()
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const port = 3000
@@ -10,6 +10,8 @@ const userRouter = require('./router/users')
 const mongoose = require('mongoose')
 const authorRouter = require('./router/author')
 const booksRouter = require('./router/books')
+const indexRouter = require('./router/index')
+
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.set('view engine', 'ejs')
@@ -29,9 +31,7 @@ db.once('open', () =>{
  
 app.use('/books', booksRouter)
 app.use('/users', userRouter)
-app.get('/', (req,res) => {
-    res.render("index")
-})
+app.use('/', indexRouter)
 app.use('/authors' , authorRouter)
 
 app.get('/header', (req,res) =>{
